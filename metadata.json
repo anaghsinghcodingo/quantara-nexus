@@ -1,0 +1,8 @@
+{
+  "name": "Quantara Nexus",
+  "description": "A high-end, futuristic corporate website for Quantara Nexus and its specialized branches: Studio of Games, AI Research, and Software Works. Built with React and Gemini 3.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

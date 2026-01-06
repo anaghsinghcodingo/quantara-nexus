@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantara Nexus // Engineering the Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-blue: #3b82f6;
+            --accent-cyan: #22d3ee;
+            --tech-bg: #020617;
+            --discord-blue: #5865F2;
+            --neon-pink: #ff007f;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--tech-bg);
+            color: #f1f5f9;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .font-game { font-family: 'Orbitron', sans-serif; }
+        .font-serif-elegant { font-family: 'Cinzel', serif; }
+        .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
+        
+        ::selection {
+            background-color: var(--discord-blue);
+            color: white;
+        }
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* AI specific styles */
+        .neural-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.08) 1px, transparent 0);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 90%);
+            pointer-events: none;
+        }
+
+        .data-stream {
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #8b5cf6, transparent);
+            animation: stream-down 4s linear infinite;
+        }
+
+        @keyframes stream-down {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(1000%); opacity: 0; }
+        }
+
+        .game-border {
+            border: 2px solid;
+            border-image: linear-gradient(to right, #3b82f6, #22d3ee) 1;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+        }
+        .glow-text-game {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+        
+        .title-architect {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            line-height: 0.85;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+<body class="tech-grid">
+    <div id="root"></div>
+</body>
+</html>
