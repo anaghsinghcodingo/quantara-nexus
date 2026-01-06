@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import Logo3D from './Logo3D';
 
 interface Props {
   onExplore: () => void;
@@ -9,6 +10,9 @@ interface Props {
 const Hero: React.FC<Props> = ({ onExplore }) => {
   return (
     <section id="home" className="relative min-h-[95vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
+      {/* 3D Background Element */}
+      <Logo3D />
+      
       {/* Visual background accents */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/10 blur-[120px] rounded-full"></div>
@@ -24,9 +28,9 @@ const Hero: React.FC<Props> = ({ onExplore }) => {
           </div>
           
           <h1 className="title-architect text-[15vw] sm:text-6xl md:text-7xl lg:text-8xl flex flex-col items-center mb-12 reveal-up" style={{ transitionDelay: '100ms' }}>
-            <span className="leading-[0.8] tracking-tight">Precision.</span>
+            <span className="leading-[0.8] tracking-tight text-white">Precision.</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-cyan-400 leading-[0.8] tracking-tight">Code.</span>
-            <span className="leading-[0.8] tracking-tight">Innovation.</span>
+            <span className="leading-[0.8] tracking-tight text-white">Innovation.</span>
           </h1>
           
           <p className="max-w-xl mx-auto text-slate-400 text-sm md:text-lg mb-14 font-sans px-4 reveal-up" style={{ transitionDelay: '200ms' }}>
@@ -36,10 +40,10 @@ const Hero: React.FC<Props> = ({ onExplore }) => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 reveal-up px-6" style={{ transitionDelay: '300ms' }}>
             <button 
               onClick={onExplore}
-              className="w-full sm:w-auto px-8 py-4 btn-primary font-bold rounded-2xl flex items-center justify-center gap-3 text-base shadow-2xl shadow-blue-500/20 active:scale-95 transition-transform"
+              className="w-full sm:w-auto px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl flex items-center justify-center gap-3 text-lg shadow-2xl shadow-blue-500/20 active:scale-95 transition-all"
             >
               Our Expertise
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5" />
             </button>
             <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-slate-500 font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
               <div className="flex items-center gap-2">

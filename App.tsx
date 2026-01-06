@@ -1,56 +1,78 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import BranchCard from './components/BranchCard';
-import Footer from './components/Footer';
-import BranchView from './components/BranchView';
-import AboutView from './components/AboutView';
-import ContactView from './components/ContactView';
-import ExpertiseView from './components/ExpertiseView';
-import ScrollToTop from './components/ScrollToTop';
-import BranchSubPage from './components/BranchSubPage';
-import { BRANCHES } from './constants';
-import { Branch } from './types';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Navigation from './components/Navigation.tsx';
+import Hero from './components/Hero.tsx';
+import BranchCard from './components/BranchCard.tsx';
+import Footer from './components/Footer.tsx';
+import BranchView from './components/BranchView.tsx';
+import AboutView from './components/AboutView.tsx';
+import ContactView from './components/ContactView.tsx';
+import ExpertiseView from './components/ExpertiseView.tsx';
+import ScrollToTop from './components/ScrollToTop.tsx';
+import BranchSubPage from './components/BranchSubPage.tsx';
+import { BRANCHES } from './constants.tsx';
+import { Branch } from './types.ts';
 import { ShieldCheck, Users, Code, Award, CheckCircle2 } from 'lucide-react';
 
 const useIntersectionObserver = (options: IntersectionObserverInit) => {
   const [elements, setElements] = useState<HTMLElement[]>([]);
-  const [entries, setEntries] = useState<IntersectionObserverEntry[]>([]);
   const observer = useRef<IntersectionObserver | null>(null);
 
+  const setElementsCallback = useCallback((newElements: HTMLElement[]) => {
+    setElements(newElements);
+  }, []);
+
   useEffect(() => {
+    if (elements.length === 0) return;
+
+    // Disconnect existing observer before creating new one
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
     observer.current = new IntersectionObserver((observedEntries) => {
-      setEntries(observedEntries);
+      observedEntries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.current?.unobserve(entry.target);
+        }
+      });
     }, options);
-    const { current: currentObserver } = observer;
-    elements.forEach((element) => currentObserver?.observe(element));
-    return () => currentObserver?.disconnect();
+
+    elements.forEach((element) => observer.current?.observe(element));
+
+    return () => observer.current?.disconnect();
   }, [elements, options]);
 
-  return [setElements, entries] as const;
+  return setElementsCallback;
 };
 
 const App: React.FC = () => {
-  // Navigation State
   const [currentView, setCurrentView] = useState<string>('home'); 
   const [activeBranchId, setActiveBranchId] = useState<string | null>(null);
   const [branchSubView, setBranchSubView] = useState<'home' | 'about' | 'contact' | 'projects'>('home');
 
-  const [setElements, entries] = useIntersectionObserver({ threshold: 0.15 });
+  const setElements = useIntersectionObserver({ threshold: 0.1 });
 
   useEffect(() => {
+    // Collect all elements that should reveal on scroll
     const revealedElements = document.querySelectorAll('.reveal-up');
-    setElements(Array.from(revealedElements) as HTMLElement[]);
+    if (revealedElements.length > 0) {
+      setElements(Array.from(revealedElements) as HTMLElement[]);
+    }
+    
+    // Safety fallback: if user is at top or elements are in view immediately, trigger them
+    const timer = setTimeout(() => {
+        revealedElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('active');
+            }
+        });
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, [currentView, activeBranchId, branchSubView, setElements]);
-
-  useEffect(() => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, [entries]);
 
   const handleBranchNavigate = (branchId: string, subView: 'home' | 'about' | 'contact' | 'projects' = 'home') => {
     setActiveBranchId(branchId);
@@ -181,7 +203,7 @@ const App: React.FC = () => {
           }
         }} 
       />
-      <main className="transition-opacity duration-300 overflow-x-hidden">
+      <main className="transition-opacity duration-300 overflow-x-hidden flex-1">
         {renderContent()}
       </main>
       <Footer 
