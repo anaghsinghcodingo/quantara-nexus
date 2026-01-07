@@ -74,7 +74,7 @@ const Footer: React.FC<Props> = ({ onNavigate, activeBranch }) => {
             )}
             <li><button onClick={() => onNavigate('home')} className="hover:text-blue-400 transition-colors uppercase tracking-widest">Home</button></li>
             <li><button onClick={() => onNavigate('expertise')} className="hover:text-blue-400 transition-colors uppercase tracking-widest">Expertise</button></li>
-            <li><button onClick={() => onNavigate('about')} className="hover:text-blue-400 transition-colors uppercase tracking-widest">Founders</button></li>
+            <li><button onClick={() => onNavigate('about')} className="hover:text-blue-400 transition-colors uppercase tracking-widest">About</button></li>
             <li><button onClick={() => onNavigate('contact')} className="hover:text-blue-400 transition-colors uppercase tracking-widest">Contact</button></li>
           </ul>
         </div>
@@ -141,3 +141,4 @@ const Footer: React.FC<Props> = ({ onNavigate, activeBranch }) => {
 };
 
 export default Footer;
+
